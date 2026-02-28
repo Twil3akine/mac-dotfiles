@@ -7,7 +7,7 @@ return {
       flavour = "mocha", -- Ghosttyと同じ暗色テーマ
       transparent_background = true, -- ここで透過させる
 
-      custom_highlights = function(colors)
+      custom_highlights = function()
         return {
           CursorLine = { bg = "NONE" },
         }
