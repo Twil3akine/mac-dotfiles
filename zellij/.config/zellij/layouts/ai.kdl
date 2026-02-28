@@ -1,0 +1,18 @@
+layout {
+  pane split_direction="vertical" {
+    pane split_direction="horizontal" {
+      pane {
+        command "ollama"
+        args "run" "qwen2.5-coder:14b"
+        size "70%"
+      }
+      pane
+
+      size "40%"
+    }
+
+    pane {
+      command "nvim"
+    }
+  }
+}
