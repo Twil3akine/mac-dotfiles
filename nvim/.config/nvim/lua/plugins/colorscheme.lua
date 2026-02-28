@@ -6,6 +6,12 @@ return {
     opts = {
       flavour = "mocha", -- Ghosttyと同じ暗色テーマ
       transparent_background = true, -- ここで透過させる
+
+      custom_highlights = function(colors)
+        return {
+          CursorLine = { bg = "NONE" },
+        }
+      end,
     },
   },
   -- 2. LazyVimのデフォルトテーマをCatppuccinに変更

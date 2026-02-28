@@ -1,16 +1,6 @@
-# ollama list で表示された名前に合わせて修正する（おそらく qwen2.5-coder:14b）
-model: ollama:qwen2.5-coder:14b
+# see https://github.com/sigoden/aichat/blob/main/config.example.yaml
 
-# aichatにOllamaの接続先を教える
+model: claude:claude-sonnet-4-6
 clients:
-  - type: ollama
-    api_base: http://localhost:11434
-    models:
-      - name: qwen2.5-coder:14b
-
-# --- 表示設定 ---
-highlight: true
-light_theme: "GitHub"
-dark_theme: "Monokai Extended"
-wrap: "no"
-wrap_code: false
+- type: claude
+  api_key: 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
