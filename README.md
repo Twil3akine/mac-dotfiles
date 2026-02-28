@@ -18,24 +18,23 @@
 
 ## 🚀 新しいMacでの復元方法 (Install)
 
-新しい環境にこの設定を適用する手順です。
+新しい環境にこの設定とツール群を適用する手順です。あらかじめHomebrewがインストールされていることを前提とします。
 
-### 1. 必須ツールのインストール
-Homebrewを使って `stow` と必須ツール群をインストールします。
+### 1. リポジトリのクローン
 
-```fish
-brew install stow fish starship neovim zellij aichat glow gh mise
-```
-
-※ Ghostty, Zed, Raycast などのGUIアプリは別途インストールしてください。
-
-### 2. リポジトリのクローン
-
-ホームディレクトリ直下にクローンします。
+macOS標準のGitを利用して、ホームディレクトリ直下にクローンします。
 
 ```fish
 git clone https://github.com/twil3akine/mac-dotfiles.git ~/dotfiles
 cd ~/dotfiles
+```
+
+### 2. Brewfileによるパッケージの一括復元
+
+`Brewfile` に記載されているすべてのCLIツール（`stow` や `fish` など）と、GUIアプリケーション（`zed` や `raycast` など）を全自動でインストールします。
+
+```fish
+brew bundle
 ```
 
 ### 3. Stowによるシンボリックリンクの展開
@@ -59,17 +58,19 @@ stow fish ghostty zellij nvim aichat gh mise raycast zed
 ### 新しいアプリを管理下に追加する場合（例：`btm`）
 
 1. `~/dotfiles` 内にアプリ名のフォルダとその階層を作ります。
+
 ```fish
 mkdir -p ~/dotfiles/bottom/.config/bottom
 ```
 
 2. 既存の設定ファイルを移動させます。
+
 ```fish
 mv ~/.config/bottom/bottom.toml ~/dotfiles/bottom/.config/bottom/
 ```
 
-
 3. Stowでリンクを張ります。
+
 ```fish
 cd ~/dotfiles
 stow bottom
@@ -79,7 +80,7 @@ stow bottom
 
 ## 🤖 バックアップの自動化 (Cron)
 
-このリポジトリは、Macの `cron` を利用して定期的に自動コミット＆プッシュされるように運用しています。
+このリポジトリは、Macの `cron` を利用して「Homebrewのインストールリストの更新」と「設定ファイルのGitへのプッシュ」を定期的に自動実行して運用しています。
 
 **現在のCron設定の確認:**
 
@@ -87,11 +88,20 @@ stow bottom
 crontab -l
 ```
 
-**手動でバックアップ（Gitへの反映）を行う場合:**
+**推奨されるCronの設定例 (毎週日曜12時に実行):**
+`crontab -e` で以下を追記します。コミット前に `brew bundle dump` が走るため、新しくインストールしたパッケージも自動で記録されます。
+
+```cron
+PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+0 12 * * 0 cd ~/dotfiles/ && brew bundle dump --force && git add . && git diff --staged --quiet || (git commit -m "chore: auto update" && git push origin main)
+```
+
+**手動で即座にバックアップを行う場合:**
 
 ```fish
 cd ~/dotfiles
+brew bundle dump --force
 git add .
-git commit -m "chore: update dotfiles"
+git commit -m "chore: update dotfiles and Brewfile"
 git push origin main
 ```
