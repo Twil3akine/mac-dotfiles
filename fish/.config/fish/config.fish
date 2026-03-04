@@ -25,6 +25,11 @@ if status is-interactive
     starship init fish | source
     zoxide init fish | source
     mise activate fish | source
+
+    # Zellijの外の時、実行
+    if not set -q ZELLIJ
+        exec zellij
+    end
 end
 
 # Added by OrbStack: command-line tools and integration

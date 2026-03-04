@@ -3,3 +3,6 @@ raycast/.config/raycast/extensions/
 
 # Zed
 zed/.config/zed/prompts/
+
+# .DS_STORE
+**/.DS_STORE
