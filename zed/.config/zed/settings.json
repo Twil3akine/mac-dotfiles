@@ -50,4 +50,12 @@
   "search": {
     "button": false,
   },
+  "languages": {
+    "Astro": {
+      "formatter": "prettier",
+    },
+    "Svelte": {
+      "formatter": "prettier",
+    },
+  },
 }

@@ -27,11 +27,14 @@ if status is-interactive
     mise activate fish | source
 
     # Zellijの外の時、実行
-    if not set -q ZELLIJ
-        exec zellij
-    end
+    # if not set -q ZELLIJ
+    # exec zellij
+    # end
 end
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# Added by Antigravity
+fish_add_path /Users/twil3akine/.antigravity/antigravity/bin
